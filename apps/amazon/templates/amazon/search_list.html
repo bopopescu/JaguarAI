@@ -6,7 +6,7 @@
 {% block modal %}
 <!-- Search Modal -->
 <form>
-<section class="search-wrapper" style="display: none;">
+<section class="search-wrapper hidden">
   <div id="search-screen">
     <header>
       <button id="search-close"><i class="fa fa-times"></i></button>
@@ -110,7 +110,7 @@
     <div class="category-card">
       <div class="quick-view">
         <a href="{% url 'search-detail' s.id %}">{{ s.name }}</a>
-        <p class="center" style="font-size: 10px; color: #666666;">{{ s.browse_node.full_name }}</p>
+        <p class="center">{{ s.browse_node.full_name }}</p>
         <img src="{{ s.products.first.image_url }}" alt="Sample Image" />
         <p>Avg Revenue / Month
           <span>{{ s.avg_revenue|currency }}

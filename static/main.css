@@ -50,11 +50,18 @@ section {
 .justify-center {
   justify-content: center;
 }
+.hidden {
+  display: none;
+}
 /* Home Page */
 .video-embed {
   width: 280px;
   height: 158px;
   margin: 10px;
+}
+.about-body {
+  background: url('images/jungle.jpg');
+  background-size: cover;
 }
 .about-p {
   width: 380px;
@@ -109,6 +116,17 @@ section {
   border: none;
   padding: 5px;
   color: white;
+}
+.login-field-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.login-field-footer input {
+  color: white;
+  background: #18a5d9;
+  padding: 10px 20px;
+  border-radius: 5px;
 }
 
 /* Main Nav bar */
@@ -496,6 +514,10 @@ nav a {
 }
 .categories-info i {
   color: #aaa;
+}
+.quick-view p:nth-child(2) {
+  font-size: 10px;
+  color: #666666;
 }
 
 

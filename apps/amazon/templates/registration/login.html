@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <title>Jaguar AI</title>
   </head>
-  <body class="flex flex-vertical" style="background: url({% static 'images/jungle.jpg' %}); background-size: cover;">
+  <body class="flex flex-vertical about-body">
       <div class="flex flex-vertical login-box">
         <img class="flex-item" src="{% static 'images/jaguar-image.svg' %}"/>
         <img class="flex-item" src="{% static 'images/jaguar-text.svg' %}"/>
@@ -32,8 +32,8 @@
             {{ form.password }}
         </div>
 
-          <div class="flex-item" style="width: 100%; display: flex; justify-content: center;">
-            <input class="button" style="color: white; background-color: #18a5d9; padding: 10px 20px; border-radius: 5px;" type="submit" value="Log In" />
+          <div class="flex-item login-field-footer">
+            <input class="button" type="submit" value="Log In" />
           </div>
         <input type="hidden" name="next" value="{{ next }}" />
         </form>
