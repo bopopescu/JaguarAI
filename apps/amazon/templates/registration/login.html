@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Jaguar AI</title>
+  </head>
+  <body class="flex flex-vertical" style="background: url({% static 'images/jungle.jpg' %}); background-size: cover;">
+      <div class="flex flex-vertical login-box">
+        <img class="flex-item" src="{% static 'images/jaguar-image.svg' %}"/>
+        <img class="flex-item" src="{% static 'images/jaguar-text.svg' %}"/>
+
+        <p class="about-p">Welcome to JaguarAI, the most advanced Artificial Intelligence tool for Amazon sourcing. JaguarAI is currently only available to clients of <a>Boom Seminars</a>. If you’d like to be notified when JaguarAI becomes available to the general public <a>click here</a>.</p>
+
+        <!-- Home view -->
+        {% if form.errors %}
+        <p class="flex-item error">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="flex-item login-field">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="flex-item login-field">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+
+          <div class="flex-item" style="width: 100%; display: flex; justify-content: center;">
+            <input class="button" style="color: white; background-color: #18a5d9; padding: 10px 20px; border-radius: 5px;" type="submit" value="Log In" />
+          </div>
+        <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+      </div>
+
+
+    <!-- Load scripts -->
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+    <script src="{% static 'main.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load colors %}
+{% load currency %}
+{% block headline %}{{ object.name }}{% endblock %}
+{% block content %}
+
+<section>
+  <div class="results-info">
+    <div class="category-view">
+      <h2>{{ object.name }}</h2>
+      <img src="{{ products.first.image_url }}" alt="Category Example">
+    </div>
+    <div class="category-info">
+      <div>
+        <h3>Keyword Trend</h3>
+        <!--<h4>May 2017</h4>-->
+      </div>
+      <div>
+        <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/962_RC10/embed_loader.js"></script>
+        <script type="text/javascript">
+            trends.embed.renderExploreWidget(
+                "TIMESERIES",
+                {
+                    "comparisonItem": [{
+                        "keyword": "{{ object.name }}",
+                        "geo": "",
+                        "time": "today 5-y"
+                    }],
+                    "category": 0,
+                    "property": ""
+                },
+                {
+                    "exploreQuery": "q={{ object.name }}",
+                    "guestPath": "https://trends.google.com:443/trends/embed/"
+                }
+            );
+        </script>
+      </div>
+  </div>
+</div>
+</section>
+
+<section class="results-wrapper">
+{% for product in products %}
+<div class="fave-card">
+  <div class="fave-head">
+    <div>
+      <p><a href="{{ product.url }}">{{ product.name|truncatechars:40 }}</a></p>
+      <p>by {{ product.brand }}</p>
+    </div>
+    <button onclick="toggleStar(this, '{{ product.asin }}')" class="
+      product-results-fave
+      {% if product.user_likes %}
+        product-results-fave-starred
+      {% endif %}
+    "><i class="fa fa-star"></i></button>
+  </div>
+  <div class="fave-quickview">
+    <img src="{{ product.image_url }}" alt="Product Image">
+    <div>
+      <h2>{{ product.monthly_profit|currency }}</h2>
+      <p>Monthly Revenue <i class="fa fa-info-circle"></i></p>
+    </div>
+  </div>
+  <div class="fave-info">
+    <div>
+      <h4>{{ product.est_sales }}</h4>
+      <h5>Sold / Month</h5>
+    </div>
+    <div>
+      <h4>{{ product.review_average }} <i class="fa fa-star"></i></h4>
+      <h5>Review Average</h5>
+    </div>
+    <div>
+      <h4>{{ product.review_count }}</h4>
+      <h5>Review Count</h5>
+    </div>
+  </div>
+  <h1 class="center">Cost Breakdown Per Unit</h1>
+  <div class="fave-revenue">
+    <div>
+      <h3>{{ product.min_price|currency }} -</h3>
+      <h4>Sale Price</h4>
+    </div>
+    <div>
+      <h3>{{ product.fba_fee|currency }} =</h3>
+      <h4>Amazon Fees</h4>
+    </div>
+    <div>
+      <h2>{{ product.min_price|subtract:product.fba_fee|currency }}</h2>
+      <h4>Net Revenue</h4>
+    </div>
+  </div>
+</div>
+{% empty %}
+  <p>No products.</p>
+{% endfor %}
+</section>
+
+{% endblock %}

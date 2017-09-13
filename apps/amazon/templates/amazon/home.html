@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% load static %}
+{% load currency %}
+
+{% block page_title %}<h3>Home</h3>{% endblock %}
+{% block subheader %}{% endblock %}
+{% block modal %}
+<!-- Search Modal -->
+<form action="{% url 'search-list' %}">
+<section class="search-wrapper" style="display: none;">
+  <div id="search-screen">
+    <header>
+      <button id="search-close"><i class="fa fa-times"></i></button>
+      <button id="search-reset">Reset All</button>
+    </header>
+    <div class="search-params">
+      <div class="search-input">
+        <div>
+          <h2 for="limit">Results Per Page</h2>
+          <h2 id="range-limit-value" class="range-value">500</h2>
+        </div>
+        <input type="range" name="limit" class="search-range-slider" id="limit" min="10" max="1000">
+      </div>
+      <div class="search-input">
+        <div>
+          <h2>Min Sold / Month</h2>
+          <h2 id="range-volume-value" class="range-value">500</h2>
+        </div>
+        <input type="range" name="min_volume" class="search-range-slider" id="min_volume" value="500" min="1" max="1000">
+      </div>
+      <div class="search-input-1">
+        <h2>Price</h2>
+        <div>
+          <input type="text" name="min_price" class="search-text" placeholder="Min" id="min_price">
+          <input type="text" name="max_price" class="search-text" placeholder="Max" id="max_price">
+        </div>
+      </div>
+      <div class="search-input-1">
+        <h2>Reviews</h2>
+        <div>
+          <input type="text" name="min_reviews" class="search-text" placeholder="Min" id="min_reviews">
+          <input type="text" name="max_reviews" class="search-text" placeholder="Max" id="max_reviews">
+        </div>
+      </div>
+      <div class="search-input-2">
+        <h2>Keywords</h2>
+        <input type="text" name="query" id="query">
+      </div>
+      <div class="search-input-2">
+        <h2>Categories</h2>
+          <select name="category" id="category">
+            {% global_nodes %}
+          </select>
+      </div>
+      <div class="save-search">
+        <button>Run Search</button>
+      </div>
+    </div>
+  </div>
+</section>
+</form>
+{% endblock %}
+{% block content %}
+
+<div class="flex flex-vertical full-width">
+    <section class="full-width">
+        <div class="results-info-head">
+          <h1 class="center results-info-header full-width">Search Parameters</h1>
+            <div class="results-info results-content">
+              <div>
+                  <h2 class="bold">Results per page</h2>
+                  <h2>{{ params.limit }}</h2>
+              </div>
+              <div>
+                  <h2 class="bold">Min Sold / Month</h2>
+                  <h2>{{ params.min_volume }}</h2>
+              </div>
+              <div>
+                <h2 class="bold">Price</h2>
+                <h2>${{ params.min_price }} - ${{ params.max_price }}</h2>
+              </div>
+              <div>
+                <h2 class="bold">Reviews</h2>
+                <h2>{{ params.min_reviews }} - {{ params.max_reviews }}</h2>
+              </div>
+              <div>
+                <h2 class="bold">Keywords</h2>
+                <h2>{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
+              </div>
+              <div>
+                <h2 class="bold">Category</h2>
+                <h2>{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
+              </div>
+            </div>
+            <div class="results-info-footer">
+                <button class="button" id='search-button'>Run a new Search</button>
+            </div>
+        </div>
+    </section>
+    <div class="home-row-container">
+        <h1>Your Saved Searches</h1>
+        <div class="home-row">
+            <!-- TODO: This is copied. -->
+            <section class="saved-wrapper">
+            {% for s in saved_searches %}
+              <div class="saved-search-card">
+                <div class="saved-search-head">
+                  <h1>{{ s.name }}</h1>
+                  <p>Last Edited: {{ s.modified_at }}</p>
+                </div>
+                <div class="saved-search-data">
+                  <div>
+                    <p>Results per Page</p>
+                    <p class="limit">{{ s.params.limit }}</p>
+                  </div>
+                  <div>
+                    <p>Min Sold / Month</p>
+                    <p class="mnvol">{{ s.params.min_volume }}</p>
+                  </div>
+                  <div>
+                    <p>Min Price</p>
+                    <p><span class="mnprc">{{ s.params.min_price|currency }}</span></p>
+                  </div>
+                  <div>
+                    <p>Max Price</p>
+                    <p><span class="mxprc">{{ s.params.max_price|currency }}</span></p>
+                  </div>
+                  <div>
+                    <p>Min Reviews</p>
+                    <p class="mnrvw">{{ s.params.min_reviews }}</p>
+                  </div>
+                  <div>
+                    <p>Max Reviews</p>
+                    <p class="mxrvw">{{ s.params.max_reviews }}</p>
+                  </div>
+                  <div>
+                    <p>Sort By</p>
+                    <p class="srtby">{{ s.params.sorting }}</p>
+                  </div>
+                  <div>
+                    <p>Keywords</p>
+                    <p class="kywrd">{% if s.params.query %}{{ s.params.query }}{% else %}(none){% endif %}</p>
+                  </div>
+                </div>
+                <div class="saved-search-footer">
+                  <button onclick="deleteSavedSearch({{ s.id }}, '{{ s.name }}')"><i class="fa fa-trash-o"></i></button>
+                  <div>
+                    <!--<button id="edit-search"><i class="fa fa-pencil"></i></button>-->
+                    <a href="{% url 'search-list' %}?{{ s.param_string }}">
+                        <button>Run Search</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+            <h1>No saved searches.</h1>
+            {% endfor %}
+            </section>
+        </div>
+        <div>
+            <a class="button home-row-button" href="{% url 'saved-searches'%}">View all saved searches</a>
+            <a class="button home-row-button" href="{% url 'search-list'%}">Start a new search</a>
+        </div>
+    </div>
+    <div class="home-row-container">
+        <h1>Your Favorite Products</h1>
+        <div class="home-row">
+            <!-- TODO: This is also copied. :'( -->
+            <section class="fave-wrapper justify-center">
+                {% for product in favorite_products %}
+                <div class="fave-card">
+                  <div class="fave-head">
+                    <div>
+                      <p><a href="{{ product.url }}">{{ product.name|truncatechars:40 }}</a></p>
+                      <p>by {{ product.brand }}</p>
+                    </div>
+                    <button onclick="toggleStar(this, '{{ product.asin }}')" class="
+                      product-results-fave
+                      {% if product.user_likes %}
+                        product-results-fave-starred
+                      {% endif %}
+                    "><i class="fa fa-star"></i></button>
+                  </div>
+                  <div class="fave-quickview">
+                    <img src="{{ product.image_url }}" alt="Product Image">
+                    <div>
+                      <h2>{{ product.revenue|currency }}</h2>
+                      <p>Monthly Revenue <i class="fa fa-info-circle"></i></p>
+                    </div>
+                  </div>
+                  <div class="fave-info">
+                    <div>
+                      <h4>{{ product.est_sales }}</h4>
+                      <h5>Sold / Month</h5>
+                    </div>
+                    <div>
+                      <h4>{{ product.review_average }} <i class="fa fa-star"></i></h4>
+                      <h5>Review Average</h5>
+                    </div>
+                    <div>
+                      <h4>{{ product.review_count }}</h4>
+                      <h5>Review Count</h5>
+                    </div>
+                  </div>
+                  <h1 class="center">Cost Breakdown Per Unit</h1>
+                  <div class="fave-revenue">
+                    <div>
+                      <h3>{{ product.min_price|currency }} -</h3>
+                      <h4>Price</h4>
+                    </div>
+                    <div>
+                      <h3>{{ product.fba_fee|currency }} =</h3>
+                      <h4>Amazon Fees</h4>
+                    </div>
+                    <div>
+                      <h2>{{ product.min_price|subtract:product.fba_fee|currency }}</h2>
+                      <h4>Net Revenue</h4>
+                    </div>
+                  </div>
+                </div>
+                {% empty %}
+                  <h1>No favorites.</h1>
+                {% endfor %}
+            </section>
+        </div>
+        <div>
+            <a class="button fave-footer-button" href="{% url 'favorite-products'%}">View all favorite products</a>
+        </div>
+    </div>
+    <!--<div class="home-row-container">-->
+        <!--<h1>Training</h1>-->
+        <!--<div class="home-row">-->
+            <!--<div>-->
+                <!--<h1>Why JaguarAI?</h1>-->
+                <!--<img style="border: 1px solid black; margin: 10px;" src="{% static 'images/fake-youtube.png' %}">-->
+                <!--&lt;!&ndash;<iframe class="video-embed" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>Get to Know the Tool</h1>-->
+                <!--<img style="border: 1px solid black; margin: 10px;" src="{% static 'images/fake-youtube.png' %}">-->
+                <!--&lt;!&ndash;<iframe class="video-embed" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>Tips and Tricks</h1>-->
+                <!--<img style="border: 1px solid black; margin: 10px;" src="{% static 'images/fake-youtube.png' %}">-->
+                <!--&lt;!&ndash;<iframe class="video-embed" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+{% endblock %}

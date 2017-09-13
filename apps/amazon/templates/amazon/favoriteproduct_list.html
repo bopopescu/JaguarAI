@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load colors %}
+{% load currency %}
+
+{% block page_title %}<h3>Favorite Products</h3>{% endblock %}
+
+{% block content %}
+<!-- TODO This is copied -->
+
+
+<section class="fave-wrapper">
+{% for product in object_list %}
+<div class="fave-card">
+  <div class="fave-head">
+    <div>
+      <p><a href="{{ product.url }}">{{ product.name|truncatechars:40 }}</a></p>
+      <p>by {{ product.brand }}</p>
+      <p><a href="{% url 'search-detail' product.search_set.first.id %}">View the category</a></p>
+    </div>
+    <button onclick="toggleStar(this, '{{ product.asin }}')" class="
+      product-results-fave
+      {% if product.user_likes %}
+        product-results-fave-starred
+      {% endif %}
+    "><i class="fa fa-star"></i></button>
+  </div>
+  <div class="fave-quickview">
+    <img src="{{ product.image_url }}" alt="Product Image">
+    <div>
+      <h2>{{ product.revenue|currency }}</h2>
+      <p>Monthly Revenue <i class="fa fa-info-circle"></i></p>
+    </div>
+  </div>
+  <div class="fave-info">
+    <div>
+      <h4>{{ product.est_sales }}</h4>
+      <h5>Sold / Month</h5>
+    </div>
+    <div>
+      <h4>{{ product.review_average }} <i class="fa fa-star"></i></h4>
+      <h5>Review Average</h5>
+    </div>
+    <div>
+      <h4>{{ product.review_count }}</h4>
+      <h5>Review Count</h5>
+    </div>
+  </div>
+  <h1 class="center">Cost Breakdown Per Unit</h1>
+  <div class="fave-revenue">
+    <div>
+      <h3>{{ product.min_price|currency }} -</h3>
+      <h4>Price</h4>
+    </div>
+    <div>
+      <h3>{{ product.fba_fee|currency }} =</h3>
+      <h4>Amazon Fees</h4>
+    </div>
+    <div>
+      <h2>{{ product.min_price|subtract:product.fba_fee|currency }}</h2>
+      <h4>Net Revenue</h4>
+    </div>
+  </div>
+  <div class="fave-revenue">
+    <div>
+      <span class="fave-revenue-font">
+        -$
+      </span>
+      <input onchange="updateProfitEstimations(this, {{ product.unit_revenue }}, '{{ product.asin }}');"
+             type="number" step="0.01" min="0"
+             name="unit_cost"
+             value="{{ product.unit_cost }}"
+      >
+      <span class="fave-revenue-font">
+        =
+      </span>
+      <h4>Unit Cost</h4>
+    </div>
+    <div>
+      <h2>{{ product.unit_revenue|subtract:product.unit_cost|currency }}</h2>
+      <h4>Estimated Profit / Unit</h4>
+    </div>
+  </div>
+</div>
+{% empty %}
+  <p>No favorites.</p>
+{% endfor %}
+</section>
+
+{% endblock %}

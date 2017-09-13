@@ -1,0 +1,13 @@
+bs4
+django
+django_extensions
+requests
+requests[socks]
+tqdm
+colour
+stem
+boto
+boto3
+aiohttp
+aiosocks
+python-amazon-simple-product-api

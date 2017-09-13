@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sweetalert.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Jaguar AI</title>
+  </head>
+  <body>
+
+    <!-- Side Menu -->
+    <section id="slide-out-nav" style="display: none;">
+      <div class="slide-out-nav-wrapper">
+        {% if request.user.is_authenticated %}
+        <div class="user-info">
+          <img src="https://via.placeholder.com/125x125" alt="Profile Picture"/>
+          <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+          <p>{{ request.user.email }}</p>
+        </div>
+        <div class="slide-out-buttons">
+          <a href="{% url 'home' %}"><div><i class="fa fa-home"></i><p>Home</p></div></a>
+          <a href="{% url 'search-list' %}"><div><i class="fa fa-search"></i><p>Browse Categories</p></div></a>
+          <a href="{% url 'favorite-products' %}"><div><i class="fa fa-star-o"></i><p>Favorite Products</p></div></a>
+          <a href="{% url 'saved-searches' %}"><div><i class="fa fa-floppy-o"></i><p>Saved Searches</p></div></a>
+          <a href="{% url 'logout' %}"><div class="slide-out-footer"><i class="fa fa-sign-out"></i><p>Sign Out</p></div></a>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    {% block modal %}{% endblock %}
+
+    <!-- Main Nav -->
+    <section>
+      <nav>
+        <div>
+          <button id="nav-button"><i class="fa fa-bars"></i></button>
+          <img class="nav-logo" src="{% static 'images/jaguar-image.svg' %}" />
+          <img src="{% static 'images/jaguar-text.svg' %}" />
+        </div>
+        {% block page_title %}{% endblock %}
+        <div></div>
+      </nav>
+
+      {% block subheader %}
+      <div class="page-info">
+        <p>{% block subheader_stat %}{{ subheader_stat }}{% endblock %}</p>
+        {% block sorting %}
+        <div>
+          <label for="sorting">Sorting:</label>
+          <select class="sort-dropdown" onchange="updateSortFilters(this)" name="sorting" type="text" id="sorting">
+            {% for op in sort_options %}
+              <option value="{{ op.0 }}">{{ op.1 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endblock %}
+      </div>
+      {% endblock %}
+
+    </section>
+
+    <!-- Home view -->
+    {% block content %}{% endblock %}
+
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+    <script src="{% static 'sweetalert.min.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
+  </body>
+</html>

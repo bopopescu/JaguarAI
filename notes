@@ -1,0 +1,51 @@
+TODO Now:
+[x] Figure out HTTPS on Caddy
+[ ] Migrate to PostgreSQL
+[ ] Rewrite the algorithm to work per category and per-product
+[ ] Rewrite algorithm to accept multiple pages of results
+[ ] Filter out promoted products on the search results pages
+[ ] Record page on product
+[ ] Start tracking historical data
+[ ] Set the algorithm to run sort of constantly
+[ ] Set up tor automagically
+
+
+TODO: Very soon
+[ ] Add "Password Reset" page
+[ ] Set up AWS emails
+ - https://sellercentral.amazon.com/hz/fba/profitabilitycalculator/index?lang=en_US
+ - https://sellercentral.amazon.com/fba/profitabilitycalculator/getafnfee?profitcalcToken=tg5rOj2FZXDQ80j2BVdbNMgQS17GfQMj3D
+[ ] Additional filters
+  [ ] Highly Branded
+  [ ] Highly Competitive
+
+
+TODO Content:
+[ ] Add "About" page
+
+
+TODO Later:
+[ ] Open amazon links in new tab
+[ ] Replace the dumb fonts
+[ ] Scaling on product images
+[ ] Get account expiry date working
+[ ] Mailchimp contact us
+[ ] Mailchimp help button
+[ ] Mailchimp "signup" link
+[ ] Blacklist (NOC list)
+
+
+
+TODO Misc to be sorted:
+Avg review count: instead say avg reviews & revenue of top 10 or something? Maybe min/max?
+Unknown instead of guessing on revenue
+Retain page position on navigate
+Replace limit with pagination
+Downloadable CSV - Searches and Products
+Sorting on search detail page
+Unicorn Smasher Estimated Sales
+Filter out highly-branded
+How can we tell (before clicking into the products) if there is only one person killing it, or are there 5?
+Sorting does most of the work
+Filters by avg/max revenue
+Search also filters product results -> custom searches

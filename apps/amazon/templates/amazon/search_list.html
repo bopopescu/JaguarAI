@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load currency %}
+{% load colors %}
+
+{% block page_title %}<h3>Browse Categories</h3>{% endblock %}
+{% block modal %}
+<!-- Search Modal -->
+<form>
+<section class="search-wrapper" style="display: none;">
+  <div id="search-screen">
+    <header>
+      <button id="search-close"><i class="fa fa-times"></i></button>
+      <button id="search-reset">Reset All</button>
+    </header>
+    <div class="search-params">
+      <div class="search-input">
+        <div>
+          <h2 for="limit">Results Per Page</h2>
+          <h2 id="range-limit-value" class="range-value">500</h2>
+        </div>
+        <input type="range" name="limit" class="search-range-slider" id="limit" min="10" max="1000">
+      </div>
+      <div class="search-input">
+        <div>
+          <h2>Min Sold / Month</h2>
+          <h2 id="range-volume-value" class="range-value">500</h2>
+        </div>
+        <input type="range" name="min_volume" class="search-range-slider" id="min_volume" value="500" min="1" max="1000">
+      </div>
+      <div class="search-input-1">
+        <h2>Price</h2>
+        <div>
+          <input type="text" name="min_price" class="search-text" placeholder="Min" id="min_price">
+          <input type="text" name="max_price" class="search-text" placeholder="Max" id="max_price">
+        </div>
+      </div>
+      <div class="search-input-1">
+        <h2>Reviews</h2>
+        <div>
+          <input type="text" name="min_reviews" class="search-text" placeholder="Min" id="min_reviews">
+          <input type="text" name="max_reviews" class="search-text" placeholder="Max" id="max_reviews">
+        </div>
+      </div>
+      <div class="search-input-2">
+        <h2>Keywords</h2>
+        <input type="text" name="query" id="query">
+      </div>
+      <div class="search-input-2">
+        <h2>Categories</h2>
+          <select name="category" id="category">
+            {% global_nodes %}
+          </select>
+      </div>
+      <div class="save-search">
+        <button>Run Search</button>
+      </div>
+    </div>
+    <!--<div class="save-search-modal-wrapper">-->
+      <!--<div class="save-search-modal" id="save-search-modal">-->
+        <!--<h1>Save Search</h1>-->
+        <!--<input type="text" placeholder="Name Your Search">-->
+        <!--<div class="save-search-buttons">-->
+          <!--<button id="cancel-save">Cancel</button>-->
+          <!--<button id="save-button">Save</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+</section>
+</form>
+{% endblock %}
+
+{% block content %}
+<section class="full-width">
+    <div class="results-info-head">
+      <h1 class="center results-info-header full-width">Search Parameters</h1>
+        <div class="results-info results-content">
+          <div>
+              <h2 class="bold">Results per page</h2>
+              <h2>{{ params.limit }}</h2>
+          </div>
+          <div>
+              <h2 class="bold">Min Sold / Month</h2>
+              <h2>{{ params.min_volume }}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Price</h2>
+            <h2>${{ params.min_price }} - ${{ params.max_price }}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Reviews</h2>
+            <h2>{{ params.min_reviews }} - {{ params.max_reviews }}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Keywords</h2>
+            <h2>{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Category</h2>
+            <h2>{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
+          </div>
+        </div>
+        <div class="results-info-footer">
+            <button class="button" id='search-button'>Run a new Search</button>
+        </div>
+    </div>
+</section>
+<section class="categories-wrapper">
+    {% for s in object_list %}
+    <div class="category-card">
+      <div class="quick-view">
+        <a href="{% url 'search-detail' s.id %}">{{ s.name }}</a>
+        <p class="center" style="font-size: 10px; color: #666666;">{{ s.browse_node.full_name }}</p>
+        <img src="{{ s.products.first.image_url }}" alt="Sample Image" />
+        <p>Avg Revenue / Month
+          <span>{{ s.avg_revenue|currency }}
+            <!--<i class="fa fa-info-circle"></i>-->
+          </span>
+        </p>
+      </div>
+      <div class="categories-data">
+        <div class="categories-data-card-1">
+          <!--<div class="categories-info">-->
+            <!--<h4>{{ s.products.count }}</h4>-->
+            <!--<p># Products</p>-->
+          <!--</div>-->
+          <div class="categories-info">
+            <h4>{{ s.avg_price|currency }}</h4>
+            <p>Avg Price / Unit</p>
+          </div>
+          <div class="categories-info">
+            <h4>{{ s.avg_volume|floatformat  }}</h4>
+            <p>Avg Sold / Month</p>
+          </div>
+        </div>
+        <div class="categories-data-card-2">
+          <!--<div class="categories-info">-->
+            <!--<h4>{{ s.avg_review_score }}★</h4>-->
+            <!--<p>Avg Review Score</p>-->
+          <!--</div>-->
+          <div class="categories-info">
+            <h4>{{ s.avg_review_count }}</h4>
+            <p>Avg Review Count</p>
+          </div>
+          <div class="categories-info">
+            <h4>{{ s.max_revenue|currency }} <i class="fa fa-info-circle"></i></h4>
+            <p>Top Seller Revenue</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <h1>No searches.</h1>
+    {% endfor %}
+</section>
+{% endblock %}

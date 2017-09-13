@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load currency %}
+
+{% block page_title %}<h3>Saved Searches</h3>{% endblock %}
+{% block subheader %}{% endblock %}
+
+{% block content %}
+<section class="saved-wrapper">
+{% for s in object_list %}
+  <div class="saved-search-card">
+    <div class="saved-search-head">
+      <h1>{{ s.name }}</h1>
+      <p>Last Edited: {{ s.modified_at }}</p>
+    </div>
+    <div class="saved-search-data">
+      <div>
+        <p>Results per Page</p>
+        <p class="limit">{{ s.params.limit }}</p>
+      </div>
+      <div>
+        <p>Min Sold / Month</p>
+        <p class="mnvol">{{ s.params.min_volume }}</p>
+      </div>
+      <div>
+        <p>Min Price</p>
+        <p><span class="mnprc">{{ s.params.min_price|currency }}</span></p>
+      </div>
+      <div>
+        <p>Max Price</p>
+        <p><span class="mxprc">{{ s.params.max_price|currency }}</span></p>
+      </div>
+      <div>
+        <p>Min Reviews</p>
+        <p class="mnrvw">{{ s.params.min_reviews }}</p>
+      </div>
+      <div>
+        <p>Max Reviews</p>
+        <p class="mxrvw">{{ s.params.max_reviews }}</p>
+      </div>
+      <div>
+        <p>Sort By</p>
+        <p class="srtby">{{ s.params.sorting }}</p>
+      </div>
+      <div>
+        <p>Keywords</p>
+        <p class="kywrd">{% if s.params.query %}{{ s.params.query }}{% else %}(none){% endif %}</p>
+      </div>
+    </div>
+    <div class="saved-search-footer">
+      <button onclick="deleteSavedSearch({{ s.id }}, '{{ s.name }}')"><i class="fa fa-trash-o"></i></button>
+      <div>
+        <!--<button id="edit-search"><i class="fa fa-pencil"></i></button>-->
+        <a href="{% url 'search-list' %}?{{ s.param_string }}">
+            <button>Run Search</button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% empty %}
+<h1>No saved searches.</h1>
+{% endfor %}
+</section>
+
+{% endblock %}

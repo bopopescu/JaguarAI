@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Jaguar AI</title>
+  </head>
+  <body class="flex flex-vertical" style="background: url({% static 'images/jungle.jpg' %}); background-size: cover;">
+      <div class="flex flex-vertical login-box">
+        <img class="flex-item" src="{% static 'images/jaguar-image.svg' %}"/>
+        <img class="flex-item" src="{% static 'images/jaguar-text.svg' %}"/>
+
+        <p class="about-p">There are numerous tools on the market designed to help Amazon FBA sellers source the right products. The problem with most of the software on the market is that it produces unreliable and generic results. Watch this three minute video to understand the true advantage of using JaguarAI:</p>
+        <iframe width="400" height="270" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allowfullscreen></iframe>
+        <p class="about-p">Jaguar AI is the most advanced product sourcing tool for Amazon FBA sellers. It is the only tool available that uses proprietary Artificial Intelligence (AI) algorithms to help you research and source the best possible products to sell on Amazon. Simply put, there is no other tool on the market that comes close to touching the capabilities of JaguarAI.</p>
+        <p class="about-p">Our team are experts that have sold tens of millions in products through Amazon’s FBA program. JaguarAI is built off our expert experience as a professional FBA organization.</p>
+        <p class="about-p">The founders at JaguarAI recently decided to partner with Boom Seminars to offer our tools exclusively to their clients. We plan to offer JaguarAI to the general public sometime in 2018. Click here to enter your email to receive updates. If you want access now to JaguarAI, click here to learn more about Boom Seminars and their best in class Amazon FBA training program.</p>
+      </div>
+
+    <!-- Load scripts -->
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+    <script src="{% static 'main.js' %}"></script>
+  </body>
+</html>
