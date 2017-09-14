@@ -68,8 +68,15 @@ section {
   margin: 10px;
   color: white;
 }
+.home-wrapper {
+  overflow-x: scroll;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-right: 10px;
+}
 .home-row-container {
-  width: 100%;
+  width: 90vw;
   background: white;
   margin-top: 10px;
   display: flex;
@@ -89,7 +96,14 @@ section {
 .home-row-button {
   margin-right: 10px;
 }
-
+@media (min-width: 800px) {
+  .home-wrapper {
+    flex-direction: column;
+  }
+  .home-wrapper section {
+    display: none;
+  }
+}
 /* Login box */
 .login-box {
   background: #161616;
@@ -128,7 +142,20 @@ section {
   padding: 10px 20px;
   border-radius: 5px;
 }
-
+@media (max-width: 500px) {
+  .login-box {
+    width: 100vw;
+  }
+  .login-box img:nth-child(1) {
+    width: 85%;
+  }
+  .login-box img:nth-child(2) {
+    width: 70%;
+  }
+  .about-p {
+    width: 70%;
+  }
+}
 /* Main Nav bar */
 nav {
   display: flex;
@@ -252,7 +279,7 @@ nav a {
 /*Search Screen */
 
 .search-wrapper {
-  display: flex;
+  display: none;
   justify-content: center;
   height: 100vh;
   width: 100vw;
@@ -439,12 +466,7 @@ nav a {
 #save-button {
   color: #18a5d9;
 }
-@media (max-height: 715px) {
-  #search-screen {
-    height: 100vh;
-    overflow: auto;
-  }
-}
+
 /* Home Page Content */
 
 .categories-wrapper {
@@ -547,6 +569,7 @@ nav a {
     width: 1610px;
   }
 }
+
 /* Sort Modal */
 
 .sort-wrapper {
@@ -867,6 +890,8 @@ nav a {
   background: white;
   margin-bottom: 10px;
   display: block;
+  width: 100vw;
+  margin: 10px;
 }
 .results-info-header {
   padding: 10px;

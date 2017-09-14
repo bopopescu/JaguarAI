@@ -7,7 +7,7 @@
 {% block modal %}
 <!-- Search Modal -->
 <form action="{% url 'search-list' %}">
-<section class="search-wrapper hidden">
+<section class="search-wrapper">
   <div id="search-screen">
     <header>
       <button id="search-close"><i class="fa fa-times"></i></button>
@@ -62,42 +62,42 @@
 {% endblock %}
 {% block content %}
 
-<div class="flex flex-vertical full-width">
-    <section class="full-width">
-        <div class="results-info-head">
-          <h1 class="center results-info-header full-width">Search Parameters</h1>
-            <div class="results-info results-content">
-              <div>
-                  <h2 class="bold">Results per page</h2>
-                  <h2>{{ params.limit }}</h2>
-              </div>
-              <div>
-                  <h2 class="bold">Min Sold / Month</h2>
-                  <h2>{{ params.min_volume }}</h2>
-              </div>
-              <div>
-                <h2 class="bold">Price</h2>
-                <h2>${{ params.min_price }} - ${{ params.max_price }}</h2>
-              </div>
-              <div>
-                <h2 class="bold">Reviews</h2>
-                <h2>{{ params.min_reviews }} - {{ params.max_reviews }}</h2>
-              </div>
-              <div>
-                <h2 class="bold">Keywords</h2>
-                <h2>{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
-              </div>
-              <div>
-                <h2 class="bold">Category</h2>
-                <h2>{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
-              </div>
-            </div>
-            <div class="results-info-footer">
-                <button class="button" id='search-button'>Run a new Search</button>
-            </div>
-        </div>
-    </section>
+<div class="home-wrapper">
+  <section>
     <div class="home-row-container">
+      <h1 class="center results-info-header full-width">Search Parameters</h1>
+        <div class="results-info results-content">
+          <div>
+              <h2 class="bold">Results per page</h2>
+              <h2>{{ params.limit }}</h2>
+          </div>
+          <div>
+              <h2 class="bold">Min Sold / Month</h2>
+              <h2>{{ params.min_volume }}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Price</h2>
+            <h2>${{ params.min_price }} - ${{ params.max_price }}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Reviews</h2>
+            <h2>{{ params.min_reviews }} - {{ params.max_reviews }}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Keywords</h2>
+            <h2>{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
+          </div>
+          <div>
+            <h2 class="bold">Category</h2>
+            <h2>{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
+          </div>
+        </div>
+        <div class="results-info-footer">
+            <button class="button" id='search-button'>Run a new Search</button>
+        </div>
+      </div>
+    </section>
+    <div class="home-row-container flex-item">
         <h1>Your Saved Searches</h1>
         <div class="home-row">
             <!-- TODO: This is copied. -->
@@ -162,7 +162,7 @@
             <a class="button home-row-button" href="{% url 'search-list'%}">Start a new search</a>
         </div>
     </div>
-    <div class="home-row-container">
+    <div class="home-row-container flex-item">
         <h1>Your Favorite Products</h1>
         <div class="home-row">
             <!-- TODO: This is also copied. :'( -->
