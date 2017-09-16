@@ -63,41 +63,61 @@
 {% block content %}
 
 <div class="home-wrapper">
-  <section>
+  <section class="home-search-params">
     <div class="home-row-container">
       <h1 class="center results-info-header full-width">Search Parameters</h1>
         <div class="results-info results-content">
           <div>
               <h2 class="bold">Results per page</h2>
               <h2>{{ params.limit }}</h2>
+              <input type="range" name="limit" class="search-range-slider" id="dt_limit" min="10" max="1000">
+              <h2 id="dt_range-limit-value" class="range-value">500</h2>
           </div>
           <div>
               <h2 class="bold">Min Sold / Month</h2>
               <h2>{{ params.min_volume }}</h2>
+              <input type="range" name="min_volume" class="search-range-slider" id="dt_min_volume" value="500" min="1" max="1000">
+              <h2 id="dt_range-volume-value" class="range-value">500</h2>
           </div>
           <div>
             <h2 class="bold">Price</h2>
             <h2>${{ params.min_price }} - ${{ params.max_price }}</h2>
+            <div>
+              <input type="text" name="min_price" class="search-text dt_text_input" placeholder="Min" id="dt_min_price">
+              <input type="text" name="max_price" class="search-text dt_text_input" placeholder="Max" id="dt_max_price">
+            </div>
           </div>
           <div>
             <h2 class="bold">Reviews</h2>
             <h2>{{ params.min_reviews }} - {{ params.max_reviews }}</h2>
+            <div>
+              <input type="text" name="min_reviews" class="search-text dt_text_input" placeholder="Min" id="dt_min_reviews">
+              <input type="text" name="max_reviews" class="search-text dt_text_input" placeholder="Max" id="dt_max_reviews">
+            </div>
           </div>
           <div>
             <h2 class="bold">Keywords</h2>
             <h2>{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
+            <div>
+              <input type="text" name="query" id="dt_query">
+            </div>
           </div>
           <div>
             <h2 class="bold">Category</h2>
             <h2>{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
+            <div>
+              <select name="category" id="dt_category">
+                {% global_nodes %}
+              </select>
+            </div>
           </div>
         </div>
         <div class="results-info-footer">
-            <button class="button" id='search-button'>Run a new Search</button>
+            <button class="button" id='dt-search-button'>Run a new Search</button>
         </div>
       </div>
     </section>
-    <div class="home-row-container flex-item">
+    <div class="home-row-container">
         <h1>Your Saved Searches</h1>
         <div class="home-row">
             <!-- TODO: This is copied. -->
@@ -157,18 +177,18 @@
             {% endfor %}
             </section>
         </div>
-        <div>
+        <div class="flex">
             <a class="button home-row-button" href="{% url 'saved-searches'%}">View all saved searches</a>
             <a class="button home-row-button" href="{% url 'search-list'%}">Start a new search</a>
         </div>
     </div>
-    <div class="home-row-container flex-item">
+    <div class="home-row-container">
         <h1>Your Favorite Products</h1>
         <div class="home-row">
             <!-- TODO: This is also copied. :'( -->
             <section class="fave-wrapper justify-center">
                 {% for product in favorite_products %}
-                <div class="fave-card">
+                <div class="fave-card" style="margin-bottom: 10px;">
                   <div class="fave-head">
                     <div>
                       <p><a href="{{ product.url }}">{{ product.name|truncatechars:40 }}</a></p>

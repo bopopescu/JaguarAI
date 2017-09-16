@@ -156,6 +156,11 @@ $(document).ready((e) => {
     event.stopPropagation();
   });
 
+  //Desktop Search
+  $('#dt-search-button').click(() => {
+    console.log($('#dt_limit').val());
+  })
+
   //Search Screen
   $('#search-button').click(() => {
     $('.search-wrapper').show()

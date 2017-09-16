@@ -69,6 +69,7 @@ section {
   color: white;
 }
 .home-wrapper {
+  width: 97.5vw;
   overflow-x: scroll;
   display: flex;
   justify-content: space-between;
@@ -76,13 +77,14 @@ section {
   margin-right: 10px;
 }
 .home-row-container {
-  width: 90vw;
+  min-width: 87.5vw;
   background: white;
   margin-top: 10px;
   display: flex;
   padding: 10px;
   flex-direction: column;
   align-items: center;
+  margin: 10px;
 }
 .home-row {
   width: 100%;
@@ -92,15 +94,44 @@ section {
   align-items: center;
   justify-content: center;
 }
+.home-search-params {
+  display: none;
+  width: 100vw;
+}
 
 .home-row-button {
   margin-right: 10px;
 }
-@media (min-width: 800px) {
+@media (min-width: 366px) and (max-width: 480px) {
+  .home-row-container {
+    max-width: 480px;
+  }
+}
+@media (min-width: 481px) and (max-width: 650px) {
+  .home-row-container {
+    min-width: 90vw;
+  }
+}
+@media (min-width: 980px) {
+  #search-button {
+    display: none;
+  }
+  .home-search-params {
+    display: flex;
+  }
   .home-wrapper {
     flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
   }
-  .home-wrapper section {
+  .home-row-container {
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+  }
+}
+@media (max-width: 799px) {
+  .home-search-params {
     display: none;
   }
 }
@@ -145,6 +176,7 @@ section {
 @media (max-width: 500px) {
   .login-box {
     width: 100vw;
+    padding-top: 0;
   }
   .login-box img:nth-child(1) {
     width: 85%;
@@ -198,12 +230,11 @@ nav a {
   background: #ddd;
   padding: 5px;
 }
-
 .page-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 30px;
+  height: 50px;
   padding: 5px;
   margin-bottom: 5px;
   background: white;
@@ -279,7 +310,7 @@ nav a {
 /*Search Screen */
 
 .search-wrapper {
-  display: none;
+  display: flex;
   justify-content: center;
   height: 100vh;
   width: 100vw;
@@ -331,7 +362,7 @@ nav a {
   height: 25px;
   -webkit-appearance: none;
   margin: 10px 0;
-  width: 100%;
+  width: 80%;
 }
 .search-range-slider:focus {
   outline: none;
@@ -377,6 +408,15 @@ nav a {
   background: #ddd;
   padding: 5px;
 }
+.dt_text_input {
+  width: 40%;
+  height: 30px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+  background: #ddd;
+  padding: 5px;
+}
 .search-input-2 {
   padding: 15px;
   font-size: 18px;
@@ -396,6 +436,24 @@ nav a {
 .search-input-2 input {
   width: 95%;
   height: 30px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+  background: #ddd;
+  padding: 5px;
+}
+#dt_query {
+  width: 80%;
+  height: 30px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+  background: #ddd;
+  padding: 5px;
+}
+#dt_category {
+  width: 80%;
+  height: 40px;
   margin-right: 10px;
   font-size: 14px;
   border: none;
@@ -882,25 +940,27 @@ nav a {
   color: gold;
 }
 .results-info {
-  width: 100%;
+  width: 100vw;
   background: white;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
 }
 .results-info-head {
   background: white;
   margin-bottom: 10px;
   display: block;
   width: 100vw;
-  margin: 10px;
 }
 .results-info-header {
   padding: 10px;
   font-size: 20px;
 }
 .results-content {
-  max-width: 1000px;
   margin: auto;
-  padding: 10px;
+  padding: 10px;]
+  display: flex;
+  flex-direction: column;
 }
 .results-info-footer {
   width: 100%;
@@ -994,5 +1054,10 @@ nav a {
   .category-info img {
     height: 100px;
     margin-top: 40px;
+  }
+}
+@media (min-width: 800px) {
+  .results-content {
+    flex-direction: row;
   }
 }
