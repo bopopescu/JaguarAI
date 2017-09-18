@@ -75,53 +75,57 @@
   <div class="home-row-container">
     <h1 class="center results-info-header full-width">Search Parameters</h1>
       <div class="results-info results-content">
-        <div>
-            <h2 class="bold">Results per page</h2>
-            <h2>{{ params.limit }}</h2>
-            <input type="range" name="limit" class="search-range-slider" id="dt_limit" min="10" max="1000">
-            <h2 id="dt_range-limit-value" class="range-value">500</h2>
-        </div>
-        <div>
-            <h2 class="bold">Min Sold / Month</h2>
-            <h2>{{ params.min_volume }}</h2>
-            <input type="range" name="min_volume" class="search-range-slider" id="dt_min_volume" value="500" min="1" max="1000">
-            <h2 id="dt_range-volume-value" class="range-value">500</h2>
-        </div>
-        <div>
-          <h2 class="bold">Price</h2>
-          <h2>${{ params.min_price }} - ${{ params.max_price }}</h2>
-          <div>
-            <input type="text" name="min_price" class="search-text dt_text_input" placeholder="Min" id="dt_min_price">
-            <input type="text" name="max_price" class="search-text dt_text_input" placeholder="Max" id="dt_max_price">
+        {% block desktopmodal %}
+        <form action="{% url 'search-list' %}">
+          <div style="display: flex;">
+            <div>
+                <h2 class="bold spacer">Results per page</h2>
+                <input type="range" name="limit" class="search-range-slider spacer" id="dt_limit" min="10" max="1000">
+                <h2 id="dt_range-value" class="range-value">{{ params.limit }}</h2>
+            </div>
+            <div>
+                <h2 class="bold spacer">Min Sold / Month</h2>
+                <input type="range" name="min_volume" class="search-range-slider spacer" id="dt_min_volume" value="500" min="1" max="1000">
+                <h2 id="dt_range-volume-value" class="range-value">{{ params.min_volume }}</h2>
+            </div>
+            <div>
+              <h2 class="bold spacer">Price</h2>
+              <div class="spacer">
+                <input type="text" name="min_price" class="search-text dt_text_input" placeholder="Min" id="dt_min_price">
+                <input type="text" name="max_price" class="search-text dt_text_input" placeholder="Max" id="dt_max_price">
+              </div>
+              <h2 class="range-value">${{ params.min_price }} - ${{ params.max_price }}</h2>
+            </div>
+            <div>
+              <h2 class="bold spacer">Reviews</h2>
+              <div class="spacer">
+                <input type="text" name="min_reviews" class="search-text dt_text_input" placeholder="Min" id="dt_min_reviews">
+                <input type="text" name="max_reviews" class="search-text dt_text_input" placeholder="Max" id="dt_max_reviews">
+              </div>
+              <h2 class="range-value">{{ params.min_price }} - {{ params.max_reviews }}</h2>
+            </div>
+            <div>
+              <h2 class="bold spacer">Keywords</h2>
+              <div class="spacer">
+                <input type="text" name="query" id="dt_query">
+              </div>
+              <h2 class="range-value">{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
+            </div>
+            <div>
+              <h2 class="bold spacer">Category</h2>
+              <div class="spacer">
+                <select name="category" id="dt_category">
+                  {% global_nodes %}
+                </select>
+              </div>
+              <h2 class="range-value">{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
+            </div>
           </div>
-        </div>
-        <div>
-          <h2 class="bold">Reviews</h2>
-          <h2>{{ params.min_reviews }} - {{ params.max_reviews }}</h2>
-          <div>
-            <input type="text" name="min_reviews" class="search-text dt_text_input" placeholder="Min" id="dt_min_reviews">
-            <input type="text" name="max_reviews" class="search-text dt_text_input" placeholder="Max" id="dt_max_reviews">
+          <div class="results-info-footer">
+            <button class="button">Run a new Search</button>
           </div>
-        </div>
-        <div>
-          <h2 class="bold">Keywords</h2>
-          <h2>{% if params.query %}{{ params.query }}{% else %}(none){% endif %}</h2>
-          <div>
-            <input type="text" name="query" id="dt_query">
-          </div>
-        </div>
-        <div>
-          <h2 class="bold">Category</h2>
-          <h2>{% if params.category %}{{ params.category }}{% else %}(all){% endif %}</h2>
-          <div>
-            <select name="category" id="dt_category">
-              {% global_nodes %}
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="results-info-footer">
-          <button class="button" id='dt-search-button'>Run a new Search</button>
+        </form>
+        {% endblock %}
       </div>
     </div>
   </section>

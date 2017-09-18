@@ -158,7 +158,7 @@ $(document).ready((e) => {
 
   //Desktop Search
   $('#dt-search-button').click(() => {
-    console.log($('#dt_limit').val());
+    
   })
 
   //Search Screen

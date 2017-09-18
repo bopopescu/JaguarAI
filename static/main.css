@@ -53,6 +53,9 @@ section {
 .hidden {
   display: none;
 }
+.spacer {
+  margin-bottom: 10px;
+}
 /* Home Page */
 .video-embed {
   width: 280px;
@@ -357,6 +360,7 @@ nav a {
 }
 .range-value {
   color: #18a5d9;
+  font-weight: bold;
 }
 .search-range-slider {
   height: 25px;
@@ -409,7 +413,7 @@ nav a {
   padding: 5px;
 }
 .dt_text_input {
-  width: 40%;
+  width: 35%;
   height: 30px;
   margin-right: 10px;
   font-size: 14px;
@@ -427,7 +431,7 @@ nav a {
 }
 .search-input-2 select {
   height: 35px;
-  width: 100%;
+  width: 90%;
   font-size: 14px;
   border: none;
   background: #ddd;
@@ -957,8 +961,9 @@ nav a {
   font-size: 20px;
 }
 .results-content {
+  max-width: 1200px;
   margin: auto;
-  padding: 10px;]
+  padding: 10px;
   display: flex;
   flex-direction: column;
 }
