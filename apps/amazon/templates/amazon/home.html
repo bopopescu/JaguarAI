@@ -70,12 +70,12 @@
           {% block desktopmodal %}
           <form action="{% url 'search-list' %}">
             <div style="display: flex;">
-              <div>
+              <div class="dt_slide_container">
                   <h2 class="bold spacer">Results per page</h2>
                   <input type="range" name="limit" class="search-range-slider spacer" id="dt_limit" min="10" max="1000">
                   <h2 id="dt_range-value" class="range-value">{{ params.limit }}</h2>
               </div>
-              <div>
+              <div class="dt_slide_container">
                   <h2 class="bold spacer">Min Sold / Month</h2>
                   <input type="range" name="min_volume" class="search-range-slider spacer" id="dt_min_volume" value="500" min="1" max="1000">
                   <h2 id="dt_range-volume-value" class="range-value">{{ params.min_volume }}</h2>

@@ -158,13 +158,13 @@ $(document).ready((e) => {
 
   //Desktop Search
   $('#dt-search-button').click(() => {
-    
+
   })
 
   //Search Screen
   $('#search-button').click(() => {
-    $('.search-wrapper').show()
-    $('section').css('overflow-y', 'hidden');
+    $('.search-wrapper').show();
+    $('body').css('overflow-y', 'hidden');
   });
 
   $('#save-search-button').click(() => {

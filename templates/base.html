@@ -53,7 +53,7 @@
         <p>{% block subheader_stat %}{{ subheader_stat }}{% endblock %}</p>
         {% block sorting %}
         <div>
-          <label for="sorting">Sorting:</label>
+          <label for="sorting" style="margin-bottom: 5px;">Sorting:</label>
           <select class="sort-dropdown" onchange="updateSortFilters(this)" name="sorting" type="text" id="sorting">
             {% for op in sort_options %}
               <option value="{{ op.0 }}">{{ op.1 }}</option>
