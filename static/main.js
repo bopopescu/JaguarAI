@@ -229,19 +229,19 @@ $(document).ready((e) => {
     $('body').css('overflow-y', 'auto')
   });
 
-  $('#limit').change(() => {
+  $('#limit').on('input', () => {
     $('#range-limit-value').text($('#limit').val())
   });
 
-  $('#min_volume').change(() => {
+  $('#min_volume').on('input', () => {
     $('#range-volume-value').text($('#min_volume').val())
   });
 
-  $('#dt_limit').change(() => {
+  $('#dt_limit').on('input', () => {
     $('#dt_range-value').text($('#dt_limit').val())
   });
 
-  $('#dt_min_volume').change(() => {
+  $('#dt_min_volume').on('input', () => {
     $('#dt_range-volume-value').text($('#dt_min_volume').val())
   });
   //Sort Screen
