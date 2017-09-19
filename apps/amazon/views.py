@@ -85,11 +85,11 @@ class SearchListView(ListView):
 
         # Parse query params
         limit = get('limit', 500)
-        min_volume = get('min_volume', 10)
-        min_price = get('min_price', 20)
-        max_price = get('max_price', 100)
+        min_volume = get('min_volume', 5)
+        min_price = get('min_price', 5)
+        max_price = get('max_price', 500)
         min_reviews = get('min_reviews', 1)
-        max_reviews = get('max_reviews', 50)
+        max_reviews = get('max_reviews', 100)
         sorting = get('sorting', '-avg_revenue')
         category = get('category', None)
         query = get('query')
@@ -123,11 +123,11 @@ class SearchListView(ListView):
                 return v
         context['params'] = dict(
             limit=get('limit', 500),
-            min_volume=get('min_volume', 10),
-            min_price=get('min_price', 20),
-            max_price=get('max_price', 100),
+            min_volume=get('min_volume', 5),
+            min_price=get('min_price', 5),
+            max_price=get('max_price', 500),
             min_reviews=get('min_reviews', 1),
-            max_reviews=get('max_reviews', 50),
+            max_reviews=get('max_reviews', 100),
             sorting=get('sorting', '-avg_volume'),
             category=get('category', None),
             query=get('query'),

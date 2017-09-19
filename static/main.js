@@ -237,6 +237,13 @@ $(document).ready((e) => {
     $('#range-volume-value').text($('#min_volume').val())
   });
 
+  $('#dt_limit').change(() => {
+    $('#dt_range-value').text($('#dt_limit').val())
+  });
+
+  $('#dt_min_volume').change(() => {
+    $('#dt_range-volume-value').text($('#dt_min_volume').val())
+  });
   //Sort Screen
 
   $('#sort-show').click(() => {
